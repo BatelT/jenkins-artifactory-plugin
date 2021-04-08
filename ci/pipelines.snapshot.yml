@@ -11,20 +11,9 @@ pipelines:
             versions:
               - "8.0.0"
     steps:
-      - name: SpectralScan
-        type: Bash
-        configuration:
-            integrations:
-                - name: spectraldsn
-        execution:
-          onExecute:
-            - curl -L "https://get.spectralops.io/latest/x/sh?dsn=$int_spectraldsn_SPECTRAL_DSN" | sh
-            - $HOME/.spectral/spectral scan --dsn $int_spectraldsn_SPECTRAL_DSN
       - name: Snapshot
         type: Bash
         configuration:
-          inputSteps: 
-            - name: SpectralScan
           inputResources:
             - name: jenkinsSnapshotGit
           integrations:
@@ -56,7 +45,17 @@ pipelines:
               ./jfrog rt mvn clean install -U -B javadoc:jar source:jar
             - ./jfrog rt bag
             - ./jfrog rt bp
-
+      - name: SpectralScan
+        type: Bash
+        configuration:
+          inputSteps: 
+            - name: jenkinsSnapshotGit  
+            integrations:
+                - name: spectraldsn
+        execution:
+          onExecute:
+            - curl -L "https://get.spectralops.io/latest/x/sh?dsn=$int_spectraldsn_SPECTRAL_DSN" | sh
+            - $HOME/.spectral/spectral scan --dsn $int_spectraldsn_SPECTRAL_DSN  
           onComplete:
             - *UPDATE_COMMIT_STATUS
 
