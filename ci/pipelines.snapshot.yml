@@ -46,7 +46,6 @@ pipelines:
             - ./jfrog rt c art --url $int_art_rt_url --access-token=$int_art_rt_token
             - ./jfrog c show
             - ./jfrog rt mvnc
-              --server-id-resolve art --repo-resolve-releases libs-release --repo-resolve-snapshots libs-snapshot
               --server-id-deploy art --repo-deploy-releases libs-release-local --repo-deploy-snapshots libs-snapshot-local            
   
             # Run install and publish
