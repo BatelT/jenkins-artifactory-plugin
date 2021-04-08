@@ -50,8 +50,8 @@ pipelines:
         configuration:
           inputSteps: 
             - name: jenkinsSnapshotGit  
-            integrations:
-                - name: spectraldsn
+          integrations:
+              - name: spectraldsn
         execution:
           onExecute:
             - curl -L "https://get.spectralops.io/latest/x/sh?dsn=$int_spectraldsn_SPECTRAL_DSN" | sh
