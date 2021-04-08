@@ -41,7 +41,7 @@ pipelines:
             - export JFROG_CLI_BUILD_NAME=jenkins-plugin-dev
             - export JFROG_CLI_BUILD_NUMBER=$run_number
             # Download JFrog CLI
-            - curl -fL https://getcli.jfrog.io | sh +x jfrog
+            - curl -fL https://getcli.jfrog.io | sh && chmod +x jfrog
             # Configure JFrog CLI
             - ./jfrog rt c art --url $int_art_rt_url --access-token=$int_art_rt_token
             - ./jfrog rt mvnc
