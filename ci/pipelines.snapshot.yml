@@ -49,7 +49,7 @@ pipelines:
         type: Bash
         configuration:
           inputSteps: 
-            - name: jenkinsSnapshotGit  
+            - name: Snapshot  
           integrations:
               - name: spectraldsn
         execution:
