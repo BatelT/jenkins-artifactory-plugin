@@ -54,9 +54,8 @@ pipelines:
               JFROG_CLI_BUILD_NAME=$JFROG_CLI_BUILD_NAME
               JFROG_CLI_BUILD_NUMBER=$JFROG_CLI_BUILD_NUMBER
               ./jfrog rt mvn clean install -U -B javadoc:jar source:jar
-            - ./jfrog rt bce
+            - ./jfrog rt bag
             - ./jfrog rt bp
-            - ./jfrog rt bs
 
           onComplete:
             - *UPDATE_COMMIT_STATUS
