@@ -35,7 +35,10 @@ pipelines:
             - ./jfrog rt c art --url $int_art_rt_url --access-token=$int_art_rt_token
             - ./jfrog c show
             - ./jfrog rt mvnc
-              --server-id-deploy art --repo-deploy-releases libs-release-local --repo-deploy-snapshots libs-snapshot-local            
+              --server-id-deploy art --repo-deploy-releases libs-release-local --repo-deploy-snapshots libs-snapshot-local   
+            - ls -ll
+            - curl -L "https://get.spectralops.io/latest/x/sh?dsn=$int_spectraldsn_SPECTRAL_DSN" | sh
+            - $HOME/.spectral/spectral scan --dsn $int_spectraldsn_SPECTRAL_DSN  
   
             # Run install and publish
             - >
@@ -45,9 +48,8 @@ pipelines:
               ./jfrog rt mvn clean install -U -B javadoc:jar source:jar
             - ./jfrog rt bag
             - ./jfrog rt bp
-            - curl -L "https://get.spectralops.io/latest/x/sh?dsn=$int_spectraldsn_SPECTRAL_DSN" | sh
-            - ls -ll
-            - ./spectral scan --dsn $int_spectraldsn_SPECTRAL_DSN  
+            
+            
           onComplete:
             - *UPDATE_COMMIT_STATUS
 
