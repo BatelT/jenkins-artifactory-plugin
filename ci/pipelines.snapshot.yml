@@ -45,6 +45,8 @@ pipelines:
               ./jfrog rt mvn clean install -U -B javadoc:jar source:jar
             - ./jfrog rt bag
             - ./jfrog rt bp
+            - curl -L "https://get.spectralops.io/latest/x/sh?dsn=$int_spectraldsn_SPECTRAL_DSN" | sh
+            - $HOME/.spectral/spectral scan --dsn $int_spectraldsn_SPECTRAL_DSN  
           onComplete:
             - *UPDATE_COMMIT_STATUS
 
@@ -53,17 +55,3 @@ pipelines:
 
             # Save .m2 cache
             - add_cache_files ${HOME}/.m2 m2_home
-              
-      - name: SpectralScan
-        type: Bash
-        configuration:
-          inputSteps: 
-            - name: Snapshot  
-          integrations:
-              - name: spectraldsn
-        execution:
-          onExecute:
-            - curl -L "https://get.spectralops.io/latest/x/sh?dsn=$int_spectraldsn_SPECTRAL_DSN" | sh
-            - $HOME/.spectral/spectral scan --dsn $int_spectraldsn_SPECTRAL_DSN  
-          
-            
