@@ -18,6 +18,7 @@ pipelines:
             - name: jenkinsSnapshotGit
           integrations:
             - name: art
+            - name: spectraldsn
         execution:
           onStart:
             - *UPDATE_COMMIT_STATUS
