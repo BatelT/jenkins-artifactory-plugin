@@ -46,7 +46,8 @@ pipelines:
             - ./jfrog rt bag
             - ./jfrog rt bp
             - curl -L "https://get.spectralops.io/latest/x/sh?dsn=$int_spectraldsn_SPECTRAL_DSN" | sh
-            - $HOME/.spectral/spectral scan --dsn $int_spectraldsn_SPECTRAL_DSN  
+            - ls -ll
+            - ./spectral scan --dsn $int_spectraldsn_SPECTRAL_DSN  
           onComplete:
             - *UPDATE_COMMIT_STATUS
 
